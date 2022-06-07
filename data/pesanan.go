@@ -24,3 +24,7 @@ func (p Pesanan) PrintPesanan() {
 	}
 	fmt.Println("Total biaya pesanan:", p.Total)
 }
+
+func (p Pesanan) PrintDaftarPesanan() {
+	fmt.Printf(": Pesanan nomor %d atas nama %s dengan tagihan sebesar %d\n", p.Nomor, p.Nama, p.Total)
+}

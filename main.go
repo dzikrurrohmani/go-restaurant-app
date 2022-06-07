@@ -32,8 +32,12 @@ func main() {
 		repo: livecode-3-wmb
 	*/
 	var state, tindakan int
+	var nomorpesanan int = 1
 	menu, meja := DataHariIni(configWithFlag())
 	pesanan := []data.Pesanan{}
+	// pesanan1 := data.Pesanan{}
+	// pesanan2 := data.Pesanan{}
+	// pesanan = append(pesanan, pesanan1, pesanan2)
 	// fmt.Println(len(meja))
 	// fmt.Println(len(menu))
 	// for _, structNya := range menu {
@@ -152,6 +156,8 @@ func main() {
 					fmt.Print("Apakah pesanan tersebut sudah benar?\n(masukkan y jika benar atau n jika salah)\n-> ")
 					validInput.Scan()
 					if validInput.Text() == "y" {
+						pesanTemp.Nomor = nomorpesanan
+						nomorpesanan++
 						namaPemesan := bufio.NewScanner(os.Stdin)
 						fmt.Print("Ingin membuat pesanan ini atas nama siapa : ")
 						namaPemesan.Scan()
@@ -181,6 +187,44 @@ func main() {
 					}
 				}
 			}
+		} else if state == 3 {
+			var pesananPilihan int
+			fmt.Print("\033[2J") //Clear screen
+			validInput := bufio.NewScanner(os.Stdin)
+			fmt.Println("Daftar pesanan yang masih aktif:")
+			if len(pesanan) > 0 {
+				for ke, pesananNya := range pesanan {
+					print(ke + 1)
+					pesananNya.PrintDaftarPesanan()
+				}
+				fmt.Print("Masukkan angka dari pesanan yang sudah selesai : ")
+				fmt.Scanln(&pesananPilihan)
+				if pesananPilihan > 0 && pesananPilihan <= len(pesanan) {
+					pesanan[pesananPilihan-1].PrintPesanan()
+					for {
+						fmt.Print("Apakah benar yang dimaksud adalah pesanan tersebut?\n(masukkan y jika benar)\n-> ")
+						validInput.Scan()
+						if validInput.Text() == "y" {
+							for _, mejaNya := range pesanan[pesananPilihan-1].MejaPesanan {
+								(*mejaNya).UbahStatus()
+							}
+							pesananTemp := hapusPesanan(pesanan, pesananPilihan-1)
+							pesanan = pesananTemp
+							break
+						} else {
+							fmt.Println("tidak ada pesanan yang dihapus.")
+							break
+						}
+					}
+				} else {
+					fmt.Println("tidak ada pesanan yang dipilih")
+				}
+			} else {
+				fmt.Println("tidak ada pesanan aktif")
+			}
+			fmt.Print("ketik apapun untuk kembali ke menu utama -> ")
+			validInput.Scan()
+			state = 0
 		}
 	}
 }
@@ -194,4 +238,8 @@ func configWithFlag() Config {
 		Menu: *conMenu,
 		Meja: *conMeja,
 	}
+}
+
+func hapusPesanan(sliceNya []data.Pesanan, s int) []data.Pesanan {
+	return append(sliceNya[:s], sliceNya[s+1:]...)
 }
