@@ -1,0 +1,16 @@
+Nama/Harga/Stok
+Nasi Uduk/8000/50
+Nasi Rames/8000/50
+Nasi Padang/8000/50
+Telor Dadar/4000/30
+Telor Ceplok/4000/30
+Ayam Goreng/8000/30
+Ayam Bakar/8000/30
+Lele Goreng/6000/30
+Lele Bakar/6000/30
+Teh Hangat/3000/30
+Teh Dingin/3000/30
+Jeruk Hangat/5000/30
+Jeruk Dingin/5000/30
+Lemon Tea Hangat/5000/30
+Lemon Tea Dingin/5000/30
