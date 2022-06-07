@@ -14,10 +14,10 @@ type Config struct {
 	Meja int
 }
 
-func DataHariIni(c Config) ([]data.Menu, []data.Meja) {
+func DataHariIni(c Config) ([]data.Service, []data.Service) {
 	menuFromFile := FileRead(c.Menu)
-	sliceMenu := []data.Menu{}
-	sliceMeja := []data.Meja{}
+	sliceMenu := []data.Service{}
+	sliceMeja := []data.Service{}
 	for _, menuNya := range menuFromFile {
 		menuTemp := strings.Split(menuNya, "/")
 		priceTemp,_ := strconv.Atoi(menuTemp[1])
@@ -28,16 +28,17 @@ func DataHariIni(c Config) ([]data.Menu, []data.Meja) {
 			Price: priceTemp,
 			Stock: stockTemp,
 		}
-
-		sliceMenu = append(sliceMenu, menuStruct)
+		sliceMenu = append(sliceMenu, &menuStruct)
+	}
+	for i := 0; i < c.Meja; i++ {
+		mejaStruct := data.Meja{
+			Nomor: i+1,
+			Availability: true,
+		}
+		sliceMeja = append(sliceMeja, &mejaStruct)
 	}
 	return sliceMenu, sliceMeja
 }
-
-// func DataHariIni(c Config) (string, int) {
-// 	FileRead(c.Menu)
-// 	return c.Menu, c.Meja
-// }
 
 func FileRead(filePath string) []string {
 	readFile, err := os.Open(filePath)
