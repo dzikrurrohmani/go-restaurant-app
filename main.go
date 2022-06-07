@@ -35,14 +35,6 @@ func main() {
 	var nomorpesanan int = 1
 	menu, meja := DataHariIni(configWithFlag())
 	pesanan := []data.Pesanan{}
-	// pesanan1 := data.Pesanan{}
-	// pesanan2 := data.Pesanan{}
-	// pesanan = append(pesanan, pesanan1, pesanan2)
-	// fmt.Println(len(meja))
-	// fmt.Println(len(menu))
-	// for _, structNya := range menu {
-	// 	fmt.Println(structNya.(*data.Menu).Name)
-	// }
 
 	fmt.Println("Hai Kasir")
 	fmt.Println("Selamat Bekerja di Warung Bahari")
@@ -51,7 +43,6 @@ func main() {
 		fmt.Printf("\r\t\t\t%2d", 5-delay)
 		time.Sleep(time.Second / 5)
 	}
-	// fmt.Printf("\033[%d;%dH", line, col) // Set cursor position
 
 	state = 0
 	for {
@@ -129,6 +120,10 @@ func main() {
 						if menuPilihan < len(menu)+1 && menu[menuPilihan-1].CekAvailability() {
 							fmt.Printf("Menu %s tersedia %d item, ingin pesan berapa : ", menu[menuPilihan-1].(*data.Menu).Name, menu[menuPilihan-1].(*data.Menu).Stock)
 							fmt.Scanln(&menuJumlah)
+							if menuJumlah > menu[menuPilihan-1].(*data.Menu).Stock {
+								fmt.Println("Maaf jumlah melebihi ketersediaan")
+								continue
+							}
 							menuPesanTemp := data.Menu{
 								Name:  menu[menuPilihan-1].(*data.Menu).Name,
 								Price: menu[menuPilihan-1].(*data.Menu).Price,
