@@ -41,7 +41,7 @@ func main() {
 	fmt.Printf("Ada %d Jenis Menu dan %d Meja yang bisa dipesan!\nAplikasi terbuka dalam :", len(menu), len(meja))
 	for delay := 0; delay < 6; delay++ {
 		fmt.Printf("\r\t\t\t%2d", 5-delay)
-		time.Sleep(time.Second / 5)
+		time.Sleep(time.Second)
 	}
 
 	state = 0
@@ -90,7 +90,7 @@ func main() {
 					fmt.Print("\033[2J") //Clear screen
 					fmt.Print("Butuh berapa meja : ")
 					fmt.Scanln(&mejaInput)
-					if mejaInput < procedure.MejaAvail(meja) {
+					if mejaInput <= procedure.MejaAvail(meja) {
 						procedure.PrintMejaSemua(meja)
 						i := 0
 						for {
@@ -109,6 +109,11 @@ func main() {
 						pesanState = 1
 					} else {
 						fmt.Println("Jumlah meja tersedia tidak mencukupi.")
+						validInput := bufio.NewScanner(os.Stdin)
+						fmt.Print("\nketik apapun untuk kembali ke menu utama -> ")
+						validInput.Scan()
+						state = 0
+						break
 					}
 				} else if pesanState == 1 {
 					var menuPilihan, menuJumlah int
