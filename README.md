@@ -1,4 +1,5 @@
 # Sistem Pemesanan dan Pembayaran Warung Makan Bahari
+## By: Dzikrur Rohmani Z. R. M. H.
 
 Repository ini berisi seluruh file yang saya kerjakan agar dapat menjalankan program
 Sistem Pemesanan dan Pembayaran Warung Makan Bahari.
